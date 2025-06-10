@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
+    
     <script type="module" src="script.mjs"></script>
   </head>
   <body>
-    <section>
+    <main>
+      <section>
       <label for="userdDropdown">User</label>
       <select id="userdDropdown" name="user" required>
         <option value="">Please choose a user</option>
@@ -15,5 +17,25 @@
         <option value="5">5</option>
       </select>
     </section>
+      
+      <section aria-labelledby="agenda-heading">
+        <h2 id="agenda-heading">Agenda</h2>
+        <ul id="agenda-list" aria-live="polite">
+      </section>
+
+      <section aria-labelledby="add-topic-heading" aria-live="polite">
+        <h2 id="add-topic-heading">Add a New Topic for revision</h2>
+        <form  id="topicForm">
+          <label for="topicName">Topic Name:</label>
+          <input type="text" id="topicName" required aria-label="Enter topic name"/>
+
+          <label for="datePicker">Select Date:</label>
+          <input type="date" id="datepicker" required aria-label="select date for the topic"/>
+
+          <button type="submit">  ADD TOPIC  </button>
+        </form>
+      </section>
+    </main>
   </body>
 </html>
+
