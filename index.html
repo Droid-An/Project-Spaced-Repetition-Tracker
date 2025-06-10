@@ -10,32 +10,20 @@
         <h2 id="agenda-heading">Agenda</h2>
         <ul id="agenda-list" aria-live="polite">
       </section>
-      
-    </main>
 
+      <section aria-labelledby="add-topic-heading" aria-live="polite">
+        <h2 id="add-topic-heading">Add a New Topic for revision</h2>
+        <form  id="topicForm">
+          <label for="topicName">Topic Name:</label>
+          <input type="text" id="topicName" required aria-label="Enter topic name"/>
+
+          <label for="datePicker">Select Date:</label>
+          <input type="date" id="datepicker" required aria-label="select date for the topic"/>
+
+          <button type="submit">  ADD TOPIC  </button>
+        </form>
+      </section>
+    </main>
   </body>
 </html>
 
-
-
-
-
-
-  <section aria-labelledby="agenda-heading">
-    <h2 id="agenda-heading">Agenda</h2>
-    <ul id="agendaList" aria-live="polite"></ul>
-  </section>
-
-  <section aria-labelledby="add-topic-heading" aria-live="polite">
-    <h2 id="add-topic-heading">Add a New Topic</h2>
-    <form id="topicForm">
-      <label for="topicName">Topic Name:</label>
-      <input type="text" id="topicName" required aria-label="Enter topic name" />
-
-      <label for="datePicker">Select Date:</label>
-      <input type="date" id="datePicker" required aria-label="Select date for the topic" />
-
-      <button type="submit">Add Topic</button>
-    </form>
-  </section>
-</main>
