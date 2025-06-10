@@ -5,8 +5,16 @@
 // You can't open the index.html file using a file:// URL.
 
 import { getUserIDs } from "./common.mjs";
+import { getData } from "./storage.mjs";
+
+const userDropdown = document.querySelector("#user");
 
 window.onload = function () {
   const users = getUserIDs();
-  document.querySelector("body").innerText = `There are ${users.length} users`;
+
+  // just check how event listener works
+  userDropdown.addEventListener("change", () => {
+    console.log(userDropdown.value);
+    console.log(getData(userDropdown.value));
+  });
 };
