@@ -8,5 +8,4 @@ import { getUserIDs } from "./common.mjs";
 
 window.onload = function () {
   const users = getUserIDs();
-  document.querySelector("body").innerText = `There are ${users.length} users`;
 };

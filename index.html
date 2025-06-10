@@ -1,41 +1,49 @@
 <!DOCTYPE html>
 <html>
   <head>
-    
     <script type="module" src="script.mjs"></script>
   </head>
   <body>
     <main>
       <section>
-      <label for="userdDropdown">User</label>
-      <select id="userdDropdown" name="user" required>
-        <option value="">Please choose a user</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-      </select>
-    </section>
-      
+        <label for="userdDropdown">User</label>
+        <select id="userdDropdown" name="user" required>
+          <option value="">Please choose a user</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </section>
+
       <section aria-labelledby="agenda-heading">
         <h2 id="agenda-heading">Agenda</h2>
-        <ul id="agenda-list" aria-live="polite">
+        <ul id="agenda-list" aria-live="polite"></ul>
       </section>
 
       <section aria-labelledby="add-topic-heading" aria-live="polite">
         <h2 id="add-topic-heading">Add a New Topic for revision</h2>
-        <form  id="topicForm">
+        <form id="topicForm">
           <label for="topicName">Topic Name:</label>
-          <input type="text" id="topicName" required aria-label="Enter topic name"/>
+          <input
+            type="text"
+            id="topicName"
+            required
+            aria-label="Enter topic name"
+          />
 
           <label for="datePicker">Select Date:</label>
-          <input type="date" id="datepicker" required aria-label="select date for the topic"/>
+          <input
+            type="date"
+            id="datepicker"
+            required
+            aria-label="select date for the topic"
+          />
 
-          <button type="submit">  ADD TOPIC  </button>
+          <button type="submit">ADD TOPIC</button>
         </form>
       </section>
     </main>
   </body>
 </html>
-
