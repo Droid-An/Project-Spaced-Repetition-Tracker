@@ -43,3 +43,10 @@ export function isFutureDate(date) {
 
   return inputDate >= today;
 }
+
+
+
+
+export function sortDatesAscending(dates) {
+  return [...dates].sort((a, b) => new Date(a) - new Date(b));
+}
