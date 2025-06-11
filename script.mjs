@@ -6,6 +6,17 @@
 
 import { getUserIDs } from "./common.mjs";
 
+const datePicker = document.getElementById("datepicker");
+
+const getDateInAString = function (date) {
+  const currentDate = date ? new Date(date) : new Date();
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+  const day = String(currentDate.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
+
 window.onload = function () {
   const users = getUserIDs();
+  datePicker.value = getDateInAString();
 };
