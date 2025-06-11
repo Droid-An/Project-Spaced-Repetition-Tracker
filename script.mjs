@@ -5,7 +5,32 @@
 // You can't open the index.html file using a file:// URL.
 
 import { getUserIDs } from "./common.mjs";
+import { getData } from "./storage.mjs";
+
+const userDropdown = document.querySelector("#userDropdown");
+const agendaList = document.querySelector("#agenda-list");
 
 window.onload = function () {
   const users = getUserIDs();
+
+  // function to render data
+  const renderAgenda = function () {
+    // get agenda
+    const agenda = getData(userDropdown.value);
+
+    if (!agenda) {
+      agendaList.textContent = `No Agenda for user ${userDropdown.value}`;
+    } else {
+      agendaList.append(agenda);
+    }
+  };
+
+  //render data on change
+  userDropdown.addEventListener("change", () => {
+    // just checking  how event listener works
+    console.log(userDropdown.value);
+    console.log(getData(userDropdown.value));
+    agendaList.innerHTML = "";
+    renderAgenda();
+  });
 };
