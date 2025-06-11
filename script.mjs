@@ -1,6 +1,3 @@
-
-// import { getUserIDs } from "./common.mjs";
-
 // const datePicker = document.getElementById("datepicker");
 
 // const getDateInAString = function (date) {
@@ -13,14 +10,13 @@
 
 // window.onload = function () {
 //   const users = getUserIDs();
-//   datePicker.value = getDateInAString();
+// datePicker.value = getDateInAString();
 // };
-
-
 
 //this is to clear the date from user to tasted
 window.onload = function () {
   clearData(1);
+  datePicker.value = getDateInAString();
 };
 
 import { getData, addData, getUserIds, clearData } from "./storage.mjs";
@@ -31,9 +27,14 @@ const topicForm = document.getElementById("topicForm");
 const topicInput = document.getElementById("topicName");
 const dateInput = document.getElementById("datePicker");
 
-// Set today as default date
-const today = new Date().toISOString().split("T")[0];
-dateInput.value = today;
+// convert date object into string
+const getDateInAString = function (date) {
+  const currentDate = date ? new Date(date) : new Date();
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+  const day = String(currentDate.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
 
 // Populate user dropdown
 getUserIds().forEach((id) => {
@@ -65,7 +66,7 @@ topicForm.addEventListener("submit", (e) => {
 
   displayAgenda(userId);
   topicForm.reset();
-  dateInput.value = today;
+  dateInput.value = getDateInAString();
 });
 
 // Function to display agenda
@@ -89,4 +90,3 @@ function displayAgenda(userId) {
     agendaList.appendChild(li);
   });
 }
-
