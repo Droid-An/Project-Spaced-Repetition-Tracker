@@ -43,6 +43,7 @@ getUserIds().forEach((id) => {
 // Load agenda when user is selected
 userDropdown.addEventListener("change", () => {
   displayAgenda(userDropdown.value);
+  revisionDateCalculation();
 });
 
 // Form submit handler
@@ -52,18 +53,31 @@ topicForm.addEventListener("submit", (e) => {
   const userId = userDropdown.value;
   if (!userId) return;
 
-  const topic = topicInput.value.trim();
-  const date = dateInput.value;
+  const topic = topicInput.value.trim(); // get the topic from the form
+  const date = dateInput.value; // get the date from the form
 
   if (!topic) return;
 
   const newEntry = { topic, date };
   addData(userId, [newEntry]);
+  revisionDateCalculation(newEntry);
 
   displayAgenda(userId);
   topicForm.reset();
   dateInput.value = getDateInAString();
 });
+
+//take the newEntry (pair of topic and date) and calculate the revision dates
+function revisionDateCalculation(userEntry) {
+  console.log(userEntry.date); //check dates
+  // console.log(getData(userDropdown.value)); check what the user have in storage
+  const repDates = generateSpacedDates(userEntry.date);
+
+  const formattedRepDates = repDates.map(
+    (repDate) => (repDate = formatDate(repDate))
+  );
+  return formattedRepDates;
+}
 
 // Function to display agenda
 function displayAgenda(userId) {
