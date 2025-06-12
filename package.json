@@ -1,0 +1,27 @@
+{
+  "name": "project-spaced-repetition-tracker",
+  "version": "1.0.0",
+  "description": "tests",
+  "main": "script.mjs",
+  "type": "module",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Droid-An/Project-Spaced-Repetition-Tracker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Droid-An/Project-Spaced-Repetition-Tracker/issues"
+  },
+  "homepage": "https://github.com/Droid-An/Project-Spaced-Repetition-Tracker#readme",
+  "devDependencies": {
+    "jest": "^30.0.0",
+    "jest-environment-jsdom": "^30.0.0"
+  }
+}
