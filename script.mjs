@@ -86,6 +86,9 @@ function displayAgenda(userId) {
   if (!userId) return;
 
   const agenda = getData(userId);
+  console.log(agenda);
+
+  // add data first then sort
   if (!agenda || agenda.length === 0) {
     const li = document.createElement("li");
     li.textContent = "No agenda for this user.";
@@ -95,8 +98,15 @@ function displayAgenda(userId) {
   }
 
   agenda.forEach((entry) => {
-    const li = document.createElement("li");
-    li.textContent = `${entry.topic} - ${entry.date}`;
-    agendaList.appendChild(li);
+    const repDates = revisionDateCalculation(entry); //calculate repetition dates based on entry in storage
+
+    for (let repDate of repDates) {
+      //for every date in the list of repetition dates create list item
+      // console.log(repDate);
+      const rep = `${entry.topic} - ${repDate}`;
+      const li = document.createElement("li");
+      li.textContent = rep;
+      agendaList.appendChild(li);
+    }
   });
 }
