@@ -1,8 +1,8 @@
-window.onload = function () {
-  clearData(1);
-};
- 
-import { getData, addData, getUserIds } from "./storage.mjs";
+// window.onload = function () {
+//   clearData(5);
+// };
+
+import { getData, addData, getUserIds, clearData } from "./storage.mjs";
 import { generateSpacedDates, isFutureDate, formatDate } from "./common.mjs";
 
 // Get elements from the HTML
