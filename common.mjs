@@ -3,6 +3,12 @@ export function getUserIDs() {
 }
 
  
+
+export function sortDatesAscending(dates) {
+  return [...dates].sort((a, b) => new Date(a) - new Date(b));
+}
+
+ 
 export function generateSpacedDates(startDate) {
   const result = [];
 
@@ -66,4 +72,5 @@ export function formatDate(date) {
 
   return `${day}${suffix} ${month} ${year}`;
 }
+ 
  
