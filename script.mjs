@@ -118,10 +118,12 @@ function displayAgenda(userId) {
     const repetitionDates = generateSpacedDates(entry.date);
 
     repetitionDates.forEach((date) => {
-      allRepetitions.push({
-        topic: entry.topic,
-        date: date,
-      });
+      if (isFutureDate(date)) {
+        allRepetitions.push({
+          topic: entry.topic,
+          date: date,
+        });
+      }
     });
   });
 
