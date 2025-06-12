@@ -1,47 +1,44 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <script type="module" src="script.mjs"></script>
-  </head>
+<html lang="en">
 
-  <body>
-    <main>
-      <section>
-        <label for="userDropdown">User</label>
-        <select id="userDropdown" name="user" required>
-          <option value="">Please choose a user</option>
-        </select>
-      </section>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Spaced Repetition Tracker</title>
+  <meta name="description"
+    content="Track and schedule your spaced repetition study sessions with personalized agendas and review dates.">
+  <script type="module" src="script.mjs"></script>
+</head>
 
-      <section aria-labelledby="agenda-heading">
-        <h2 id="agenda-heading">Agenda</h2>
-        <ul id="agenda-list" aria-live="polite">
-          <!-- User agendas will be displayed here -->
-        </ul>
-      </section>
+<body>
+  <main>
+    <section>
+      <label for="userDropdown">User</label>
+      <select id="userDropdown" name="user" required>
+        <option value="">Please choose a user</option>
+      </select>
+    </section>
 
-      <section aria-labelledby="add-topic-heading" aria-live="polite">
-        <h2 id="add-topic-heading">Add a New Topic for revision</h2>
-        <form id="topicForm">
-          <label for="topicName">Topic Name:</label>
-          <input
-            type="text"
-            id="topicName"
-            required
-            aria-label="Enter topic name"
-          />
+    <section aria-labelledby="agenda-heading">
+      <h2 id="agenda-heading">Agenda</h2>
+      <ul id="agenda-list" aria-live="polite">
+        <!-- User agendas will be displayed here -->
+      </ul>
+    </section>
 
-          <label for="datePicker">Select Date:</label>
-          <input
-            type="date"
-            id="datePicker"
-            required
-            aria-label="select date for the topic"
-          />
+    <section aria-labelledby="add-topic-heading" aria-live="polite">
+      <h2 id="add-topic-heading">Add a New Topic for revision</h2>
+      <form id="topicForm">
+        <label for="topicName">Topic Name:</label>
+        <input type="text" id="topicName" required aria-label="Enter topic name" />
 
-          <button id="addbtn" type="submit">ADD TOPIC</button>
-        </form>
-      </section>
-    </main>
-  </body>
+        <label for="datePicker">Select Date:</label>
+        <input type="date" id="datePicker" required aria-label="select date for the topic" />
+
+        <button id="addbtn" type="submit">ADD TOPIC</button>
+      </form>
+    </section>
+  </main>
+</body>
+
 </html>
