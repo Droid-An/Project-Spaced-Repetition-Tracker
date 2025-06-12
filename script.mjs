@@ -10,6 +10,12 @@ window.onload = function () {
 };
 
 import { getData, addData, getUserIds, clearData } from "./storage.mjs";
+import {
+  sortDatesAscending,
+  generateSpacedDates,
+  isFutureDate,
+  formatDate,
+} from "./common.mjs";
 
 const userDropdown = document.getElementById("userDropdown");
 const agendaList = document.getElementById("agenda-list");
@@ -56,7 +62,7 @@ topicForm.addEventListener("submit", (e) => {
 
   displayAgenda(userId);
   topicForm.reset();
-  dateInput.value = today;
+  dateInput.value = getDateInAString();
 });
 
 // Function to display agenda
