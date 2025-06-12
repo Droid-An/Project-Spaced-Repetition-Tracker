@@ -35,3 +35,7 @@ export function addData(userId, data) {
 export function clearData(userId) {
   localStorage.removeItem(`stored-data-user-${userId}`);
 }
+
+export function getUserIds() {
+  return ["1", "2", "3", "4", "5"];
+}
