@@ -1,139 +1,122 @@
-// window.onload = function () {
-//   const users = getUserIDs();
-
-// };
-
-//this is to clear the date from user to tasted
 window.onload = function () {
-  clearData(2);
-  dateInput.value = getDateInAString();
+  clearData(1);
 };
+ 
+import { getData, addData, getUserIds } from "./storage.mjs";
+import { generateSpacedDates, isFutureDate, formatDate } from "./common.mjs";
 
-import { getData, addData, getUserIds, clearData } from "./storage.mjs";
-import {
-  sortDatesAscending,
-  generateSpacedDates,
-  isFutureDate,
-  formatDate,
-} from "./common.mjs";
-
+// Get elements from the HTML
 const userDropdown = document.getElementById("userDropdown");
 const agendaList = document.getElementById("agenda-list");
 const topicForm = document.getElementById("topicForm");
 const topicInput = document.getElementById("topicName");
 const dateInput = document.getElementById("datePicker");
 
-// Set today as default date
-const getDateInAString = function (date) {
-  const currentDate = date ? new Date(date) : new Date();
-  const year = currentDate.getFullYear();
-  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-  const day = String(currentDate.getDate()).padStart(2, "0");
+// Function to get today’s date in "YYYY-MM-DD" format
+function getTodayDateString() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
-};
-
-// Populate user dropdown
-getUserIds().forEach((id) => {
-  const option = document.createElement("option");
-  option.value = id;
-  option.textContent = id;
-  userDropdown.appendChild(option);
-});
-
-// Load agenda when user is selected
-userDropdown.addEventListener("change", () => {
-  displayAgenda(userDropdown.value);
-  revisionDateCalculation();
-});
-
-// Form submit handler
-topicForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  const userId = userDropdown.value;
-  if (!userId) return;
-
-  const topic = topicInput.value.trim(); // get the topic from the form
-  const date = dateInput.value; // get the date from the form
-
-  if (!topic) return;
-
-  const newEntry = { topic, date };
-  addData(userId, [newEntry]);
-  revisionDateCalculation(newEntry);
-
-  displayAgenda(userId);
-  topicForm.reset();
-  dateInput.value = getDateInAString();
-});
-
-//take the newEntry (pair of topic and date) and calculate the revision dates
-function revisionDateCalculation(userEntry) {
-  console.log(userEntry.date); //check dates
-  // console.log(getData(userDropdown.value)); check what the user have in storage
-  const repDates = generateSpacedDates(userEntry.date);
-
-  const formattedRepDates = repDates.map(
-    (repDate) => (repDate = formatDate(repDate))
-  );
-  return formattedRepDates;
 }
 
-// Function to display agenda
+// Set default date to today in the form
+dateInput.value = getTodayDateString();
+
+// Fill the dropdown with user IDs
+function populateUserDropdown() {
+  const userIds = getUserIds();
+
+  userIds.forEach((id) => {
+    const option = document.createElement("option");
+    option.value = id;
+    option.textContent = id;
+    userDropdown.appendChild(option);
+  });
+}
+
+// Show the agenda for the selected user
 function displayAgenda(userId) {
-  agendaList.innerHTML = ""; // Clear existing list
+  agendaList.innerHTML = ""; // Clear the list
 
   if (!userId) return;
 
-  const agenda = getData(userId);
-  console.log(agenda);
+  const agenda = getData(userId); // Get data for that user
 
-  // add data first then sort
   if (!agenda || agenda.length === 0) {
     const li = document.createElement("li");
     li.textContent = "No agenda for this user.";
-    li.id = "no-agenda";
     agendaList.appendChild(li);
     return;
   }
 
-  // agenda.forEach((entry) => {
-  //   const repDates = revisionDateCalculation(entry); //calculate repetition dates based on entry in storage
+  const upcomingRevisions = [];
 
-  //   for (let repDate of repDates) {
-  //     //for every date in the list of repetition dates create list item
-
-  //     const rep = `${entry.topic} - ${repDate}`;
-  //     listOfAllReps.push(rep);
-  //     const li = document.createElement("li");
-  //     li.textContent = rep;
-  //     agendaList.appendChild(li);
-  //   }
-  // });
-  // console.log(listOfAllReps);
-
-  const allRepetitions = [];
-
+  // Loop through all saved topics and dates
   agenda.forEach((entry) => {
-    const repetitionDates = generateSpacedDates(entry.date);
+    const reviewDates = generateSpacedDates(entry.date);
 
-    repetitionDates.forEach((date) => {
+    reviewDates.forEach((date) => {
       if (isFutureDate(date)) {
-        allRepetitions.push({
-          topic: entry.topic,
-          date: date,
-        });
+        upcomingRevisions.push({ topic: entry.topic, date: date });
       }
     });
   });
 
-  // Sort repetition by date
-  allRepetitions.sort((a, b) => a.date - b.date);
+  // Sort by date
+  upcomingRevisions.sort((a, b) => a.date - b.date);
 
-  // display repetitions
-  allRepetitions.forEach((rep) => {
+  // Show each revision item on the screen
+  upcomingRevisions.forEach((item) => {
     const li = document.createElement("li");
-    li.textContent = `${rep.topic} - ${formatDate(rep.date)}`;
+    li.textContent = `${item.topic} - ${formatDate(item.date)}`;
     agendaList.appendChild(li);
   });
 }
+
+// When a new topic is submitted
+function handleFormSubmit(event) {
+  event.preventDefault(); // Stop the form from refreshing the page
+
+  const userId = userDropdown.value;
+  const topic = topicInput.value.trim();
+  const date = dateInput.value;
+
+  if (!userId || !topic) return;
+
+  const newEntry = { topic, date };
+
+  // Save the new topic for that user
+  addData(userId, [newEntry]);
+
+  // (Optional) Log the revision dates
+  console.log(getRevisionDates(newEntry));
+
+  // Show updated agenda
+  displayAgenda(userId);
+
+  // Clear the form and reset the date to today
+  topicForm.reset();
+  dateInput.value = getTodayDateString();
+}
+
+// Generate and format revision dates
+function getRevisionDates(entry) {
+  const spacedDates = generateSpacedDates(entry.date);
+  return spacedDates.map((d) => formatDate(d));
+}
+
+// === Event Listeners ===
+
+// When user is selected from dropdown
+userDropdown.addEventListener("change", () => {
+  const selectedUser = userDropdown.value;
+  displayAgenda(selectedUser);
+});
+
+// When the form is submitted
+topicForm.addEventListener("submit", handleFormSubmit);
+
+// === Start the app ===
+populateUserDropdown(); // Fill the dropdown when page loads
