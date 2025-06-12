@@ -5,7 +5,7 @@
 
 //this is to clear the date from user to tasted
 window.onload = function () {
-  clearData(1);
+  clearData(2);
   dateInput.value = getDateInAString();
 };
 
@@ -97,16 +97,41 @@ function displayAgenda(userId) {
     return;
   }
 
-  agenda.forEach((entry) => {
-    const repDates = revisionDateCalculation(entry); //calculate repetition dates based on entry in storage
+  // agenda.forEach((entry) => {
+  //   const repDates = revisionDateCalculation(entry); //calculate repetition dates based on entry in storage
 
-    for (let repDate of repDates) {
-      //for every date in the list of repetition dates create list item
-      // console.log(repDate);
-      const rep = `${entry.topic} - ${repDate}`;
-      const li = document.createElement("li");
-      li.textContent = rep;
-      agendaList.appendChild(li);
-    }
+  //   for (let repDate of repDates) {
+  //     //for every date in the list of repetition dates create list item
+
+  //     const rep = `${entry.topic} - ${repDate}`;
+  //     listOfAllReps.push(rep);
+  //     const li = document.createElement("li");
+  //     li.textContent = rep;
+  //     agendaList.appendChild(li);
+  //   }
+  // });
+  // console.log(listOfAllReps);
+
+  const allRepetitions = [];
+
+  agenda.forEach((entry) => {
+    const repetitionDates = generateSpacedDates(entry.date);
+
+    repetitionDates.forEach((date) => {
+      allRepetitions.push({
+        topic: entry.topic,
+        date: date,
+      });
+    });
+  });
+
+  // Sort repetition by date
+  allRepetitions.sort((a, b) => a.date - b.date);
+
+  // display repetitions
+  allRepetitions.forEach((rep) => {
+    const li = document.createElement("li");
+    li.textContent = `${rep.topic} - ${formatDate(rep.date)}`;
+    agendaList.appendChild(li);
   });
 }
