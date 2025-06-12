@@ -1,26 +1,12 @@
-
-// import { getUserIDs } from "./common.mjs";
-
-// const datePicker = document.getElementById("datepicker");
-
-// const getDateInAString = function (date) {
-//   const currentDate = date ? new Date(date) : new Date();
-//   const year = currentDate.getFullYear();
-//   const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-//   const day = String(currentDate.getDate()).padStart(2, "0");
-//   return `${year}-${month}-${day}`;
-// };
-
 // window.onload = function () {
 //   const users = getUserIDs();
-//   datePicker.value = getDateInAString();
+
 // };
-
-
 
 //this is to clear the date from user to tasted
 window.onload = function () {
   clearData(1);
+  dateInput.value = getDateInAString();
 };
 
 import { getData, addData, getUserIds, clearData } from "./storage.mjs";
@@ -32,8 +18,13 @@ const topicInput = document.getElementById("topicName");
 const dateInput = document.getElementById("datePicker");
 
 // Set today as default date
-const today = new Date().toISOString().split("T")[0];
-dateInput.value = today;
+const getDateInAString = function (date) {
+  const currentDate = date ? new Date(date) : new Date();
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+  const day = String(currentDate.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
 
 // Populate user dropdown
 getUserIds().forEach((id) => {
@@ -89,4 +80,3 @@ function displayAgenda(userId) {
     agendaList.appendChild(li);
   });
 }
-
