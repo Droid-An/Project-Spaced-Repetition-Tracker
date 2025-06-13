@@ -5,7 +5,7 @@
   "main": "script.mjs",
   "type": "module",
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    "test": "set NODE_OPTIONS=--experimental-vm-modules && jest"
   },
   "jest": {
     "testEnvironment": "jsdom"
@@ -23,5 +23,6 @@
   "devDependencies": {
     "jest": "^30.0.0",
     "jest-environment-jsdom": "^30.0.0"
-  }
+  },
+  "keywords": []
 }
